@@ -35,26 +35,19 @@ class Lockitron(object):
 	def __init__(self, email=None, password=None):
 		self.email = email
 		self.password = password
-		'''
-			ATTN Lockitron: I want to set the id of my call to something other than 'dash'
-							as I know it's rude to 100% emulate the iPhone app but, unfortunately
-							requests to the login API return blank content (but, valid cookie?)
-							which breaks the API as I can't get the list of locks and UUIDs. I would
-							prefer to make the call with my own ID to be polite but, can't :-(
-		'''
+		
 		self.lockitron_id = 'dash' #"python-lockitron"
 
 		if self.email is None or self.password is None:
 			raise AttributeError("Email and Password need to be passed as parameters")
 		self.api_endpoints = {
-									'root'		:	"https://lockitron.com/",
-									'endpoints'	:	{
-														'login'	: 'api/mobile/login?id=%s',
-														'lock'	: 'access/%s/lock',
-														'unlock': 'access/%s/unlock',
-													}
+								'root'		:	"https://lockitron.com/",
+								'endpoints'	:	{
+													'login'	: 'api/mobile/login?id=%s',
+													'lock'	: 'access/%s/lock',
+													'unlock': 'access/%s/unlock',
+												}
 							}
-		# As with the login _id I'd rather not spoof user agents but, it won't function without it either :-(
 		self.headers = {'User-Agent': 'Appcelerator Titanium/1.7.2 (iPhone/5.0.1; iPhone OS; en_US;)', 'X-Requested-With': 'XMLHttpRequest'}
 
 		self.locks = []
