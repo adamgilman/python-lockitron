@@ -53,8 +53,14 @@ class Lockitron(object):
 
 		if self.email is None or self.password is None:
 			raise AttributeError("Email and Password need to be passed as parameters")
+		self.api_endpoints = {}
+		self.api_endpoints['root'] = "https://lockitron.com/"
+		self.api_endpoints['endpoints'] = {}
+		self.api_endpoints['endpoints']['login'] = 'api/mobile/login?id=%s'
+		self.api_endpoints['endpoints']['lock'] = 'access/%s/lock'
+		self.api_endpoints['endpoints']['unlock'] = 'access/%s/unlock'
 		self.api_endpoints = {
-								'root'		:	"https://lockitron.com/",
+								'root'		:	,
 								'endpoints'	:	{
 													'login'	: 'api/mobile/login?id=%s',
 													'lock'	: 'access/%s/lock',
