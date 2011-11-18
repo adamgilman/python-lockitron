@@ -59,14 +59,7 @@ class Lockitron(object):
 		self.api_endpoints['endpoints']['login'] = 'api/mobile/login?id=%s'
 		self.api_endpoints['endpoints']['lock'] = 'access/%s/lock'
 		self.api_endpoints['endpoints']['unlock'] = 'access/%s/unlock'
-		self.api_endpoints = {
-								'root'		:	,
-								'endpoints'	:	{
-													'login'	: 'api/mobile/login?id=%s',
-													'lock'	: 'access/%s/lock',
-													'unlock': 'access/%s/unlock',
-												}
-							}
+		
 		self.headers = {'User-Agent': 'Appcelerator Titanium/1.7.2 (iPhone/5.0.1; iPhone OS; en_US;)', 
 						'X-Requested-With': 'XMLHttpRequest'}
 
