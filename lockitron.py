@@ -8,9 +8,16 @@ lock_controller.locks
 
 #lock first door that you control
 lock_controller.lock(lock_controller.locks[0])
+#or
+lock = lock_controller.locks[0]
+lock.lock()
 
 #unlock first door that you control
 lock_controller.unlock(lock_controller.locks[0])
+#or
+lock = lock_controller.locks[0]
+lock.unlock()
+
 '''
 
 import requests
@@ -18,15 +25,21 @@ try: import simplejson as json
 except ImportError: import json
 
 class Lock(object):
-	def __init__(self):
+	def __init__(self, lock_controller):
 		self.uuid = None
 		self.app_id = None
 		self.name = None
+		self.controller = self
 	
 	def create_from_json(self, login_json):
 		self.uuid = login_json['permission']['uuid']
 		self.app_id = login_json['permission']['app_id']
 		self.name = login_json['permission']['app']['name']
+
+	def lock(self):
+		self.controller.lock(self)
+	def unlock(self):
+		self.controller.unlock(self)
 
 	def __repr__(self):
 		return self.name
@@ -48,7 +61,8 @@ class Lockitron(object):
 													'unlock': 'access/%s/unlock',
 												}
 							}
-		self.headers = {'User-Agent': 'Appcelerator Titanium/1.7.2 (iPhone/5.0.1; iPhone OS; en_US;)', 'X-Requested-With': 'XMLHttpRequest'}
+		self.headers = {'User-Agent': 'Appcelerator Titanium/1.7.2 (iPhone/5.0.1; iPhone OS; en_US;)', 
+						'X-Requested-With': 'XMLHttpRequest'}
 
 		self.locks = []
 		
@@ -66,7 +80,7 @@ class Lockitron(object):
 	
 	def gather_locks_from_login(self, locks):
 		for lock in locks:
-			new_lock = Lock()
+			new_lock = Lock(self)
 			new_lock.create_from_json(lock)
 			self.locks.append(new_lock)
 	
