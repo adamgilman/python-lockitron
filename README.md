@@ -1,7 +1,18 @@
-'''
-			ATTN Lockitron: I want to set the id of my call to something other than 'dash'
-							as I know it's rude to 100% emulate the iPhone app but, unfortunately
-							requests to the login API return blank content (but, valid cookie?)
-							which breaks the API as I can't get the list of locks and UUIDs. I would
-							prefer to make the call with my own ID to be polite but, can't :-(
-		'''
+Example Usage
+
+	from lockitron import Lockitron
+	lock_controller = Lockitron(email="email@address.com", password="password")
+	lock_controller.locks
+		#contains all the locks you control - [LockName]
+
+	#lock first door that you control
+	lock_controller.lock(lock_controller.locks[0])
+	#or
+	lock = lock_controller.locks[0]
+	lock.lock()
+
+	#unlock first door that you control
+	lock_controller.unlock(lock_controller.locks[0])
+	#or
+	lock = lock_controller.locks[0]
+	lock.unlock()
